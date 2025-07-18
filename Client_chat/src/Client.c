@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 02:48:40 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/18 02:07:34 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/18 03:09:58 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ void	try_to_connect_serveur(int *server_fd, struct sockaddr_in *sockAdd)
 		fprintf(stderr, "Erreur lors de la conexion\n");
 		exit(1);
 	}
-	puts("Connecter au serveur");
 }

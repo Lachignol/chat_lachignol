@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 23:33:45 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/18 02:18:32 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/18 03:08:49 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	add_new_contact(t_fd *fd, t_sock_adress *sock_ad)
 				printf("New chatter\n");
 				return ;
 			}
-			if (i + 1 == CONNEXION_LIMIT)
-				printf("Can't add anymore Client");
 		}
+		return (send(new_client, "Full: serveur saturé\n", 21, 0),
+			close(new_client), printf("Max Connexion reached\n"), (void) NULL);
 	}
 }
 
