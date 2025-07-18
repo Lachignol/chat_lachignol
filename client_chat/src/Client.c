@@ -6,43 +6,52 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 02:48:40 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/14 23:39:00 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/18 02:07:34 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.h"
+#include "Client.h"
 
-void	init_and_link_srv_socket(int *srv_fd, struct sockaddr_in *sockadd)
+void	check_pseudo(char *pseudo_macro, size_t max_length_pseudo)
 {
+	if (strlen(pseudo_macro) > max_length_pseudo)
+	{
+		printf("PSEUDO trop long maximum 20 caracteres");
+		exit(1);
+	}
+}
+
+void	init_server_socket(int *srv_fd, struct sockaddr_in *sockAd, int *max_fd)
+{
+	int	inet_return_code;
+
 	*srv_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (*srv_fd < 0)
 	{
 		fprintf(stderr, "Erreur lors de la creation du socket\n");
 		exit(1);
 	}
-	(*(sockadd)).sin_family = AF_INET;
-	(*(sockadd)).sin_port = LISTENING_PORT;
-	(*(sockadd)).sin_addr.s_addr = INADDR_ANY;
-	if (bind(*srv_fd, (struct sockaddr *) &(*(sockadd)), sizeof((*(sockadd)))) < 0)
+	(*(sockAd)).sin_family = AF_INET;
+	(*(sockAd)).sin_port = LISTENING_PORT;
+	inet_return_code = inet_pton(AF_INET, SERVER_ADDR, &(*(sockAd)).sin_addr);
+	if (inet_return_code < 0)
 	{
-		fprintf(stderr, "Erreur de linkage pour le socket\n");
+		fprintf(stderr, "Adresse invalide\n");
 		exit(1);
 	}
+	if (*srv_fd > STDIN_FILENO)
+		*max_fd = *srv_fd;
+	else
+		*max_fd = STDIN_FILENO;
 }
 
-void	listning(int *srv_fd)
+void	try_to_connect_serveur(int *server_fd, struct sockaddr_in *sockAdd)
 {
-	if (listen(*srv_fd, CONNEXION_LIMIT) < 0)
+	if (connect(*server_fd, (struct sockaddr *) &(*(sockAdd)),
+			sizeof(*sockAdd)) < 0)
 	{
-		fprintf(stderr, "Erreur lors de la mise en ecoute\n");
+		fprintf(stderr, "Erreur lors de la conexion\n");
 		exit(1);
 	}
-	puts("Serveur en ecoute\n");
-}
-
-void	init_var(char *buffer, int *connectedSocketFd, socklen_t *socket_add_size, struct sockaddr_in *sock_address)
-{
-	*socket_add_size = sizeof(*sock_address);
-	memset(buffer, '\0', BUFFER_SIZE);
-	memset(connectedSocketFd, 0, sizeof(int) * CONNEXION_LIMIT);
+	puts("Connecter au serveur");
 }

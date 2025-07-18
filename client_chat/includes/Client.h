@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:05:23 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/14 22:17:08 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/18 02:07:52 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct data_s
 	char	fullmsg[BUFFER_SIZE];
 }	t_data;
 
-void	check_pseudo(char *pseudo_macro, int max_length_pseudo);
+void	check_pseudo(char *pseudo_macro, size_t max_length_pseudo);
 void	init_server_socket(int *server_fd, struct sockaddr_in *socketAddress,
 			int *max_fd);
 void	try_to_connect_serveur(int *server_fd, struct sockaddr_in *sockAdd);

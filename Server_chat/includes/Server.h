@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:15:18 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/15 01:54:15 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/18 02:19:26 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,29 @@
 # define BUFFER_SIZE 1024
 # define WELCOME_MSG "Bienvenue sur le serveur de la chignol\n"
 
-void	init_monitoring(fd_set *monitor_fd, int *srv_fd, int *connectedSocketFd);
-void	monitor(int *srv_fd, fd_set *monitoring_fd, socklen_t *socketAdressLength, int *connectedSocketFd, struct sockaddr_in *socketAdrress, char *buffer);
-void	init_var(char *buffer, int *connectedSocketFd, socklen_t *socket_add_size, struct sockaddr_in *sock_address);
+typedef struct adress_s
+{
+	socklen_t			size;
+	struct sockaddr_in	sock_address;
+
+}	t_sock_adress;
+
+typedef struct fd_s
+{
+	int		srv_fd;
+	int		connected_socket_fd[CONNEXION_LIMIT];
+	fd_set	monitoring_fd;
+
+}	t_fd;
+
+void	init_monitoring(t_fd *fd);
+void	monitor(t_fd *fd, t_sock_adress *socket_address, char *buffer);
+void	read_and_send(t_fd *fd, char *buffer);
+void	init_var(char *buffer, int *connectedSocketFd,
+			t_sock_adress *socket_address);
 void	listning(int *srv_fd);
-void	init_and_link_srv_socket(int *srv_fd, struct sockaddr_in *sockadd);
+void	init_and_link_srv_socket(t_fd *fd, t_sock_adress *socket_adress);
+void	handle_client_data(t_fd *fd, char *buffer, int idx, int bytes);
+void	handle_client_disconnect(t_fd *fd, int idx);
 
 #endif
