@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 02:48:40 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/26 02:01:03 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:14:23 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_and_link_srv_socket(t_fd *fd, t_sock_adress *socket_adress)
 		exit(1);
 	}
 	socket_adress->sock_address.sin_family = AF_INET;
-	socket_adress->sock_address.sin_port = LISTENING_PORT;
+	socket_adress->sock_address.sin_port = htons(LISTENING_PORT);
 	socket_adress->sock_address.sin_addr.s_addr = INADDR_ANY;
 	if (bind(fd->srv_fd, (struct sockaddr *) &(socket_adress->sock_address),
 			sizeof(socket_adress->sock_address)) < 0)

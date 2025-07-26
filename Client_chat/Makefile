@@ -6,7 +6,8 @@ INCDIR  = includes
 
 SRCS    = $(SRCDIR)/main.c \
           $(SRCDIR)/Client.c \
-          $(SRCDIR)/Monitoring.c
+          $(SRCDIR)/Monitoring.c \
+          $(SRCDIR)/CheckInput.c
 
 OBJS    = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 

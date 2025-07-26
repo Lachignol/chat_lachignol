@@ -5,7 +5,10 @@ INCDIR  = includes
 
 SRCS    = $(SRCDIR)/main.c \
           $(SRCDIR)/Monitor.c \
-          $(SRCDIR)/Server.c
+          $(SRCDIR)/Server.c \
+          $(SRCDIR)/Sanitize.c \
+          $(SRCDIR)/addUser.c \
+          $(SRCDIR)/Broadcast.c
 
 OBJS    = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 

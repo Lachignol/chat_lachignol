@@ -6,27 +6,37 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:11:36 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/18 02:07:58 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:51:11 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	int							server_fd;
 	int							max_fd;
 	t_data						data;
 	fd_set						monitoring_fd;
 	struct sockaddr_in			socket_address;
+	t_server					server;
 
-	check_pseudo(PSEUDO, PSEUDO_MAX_LENGTH);
-	init_server_socket(&server_fd, &socket_address, &max_fd);
-	try_to_connect_serveur(&server_fd, &socket_address);
-	while (1)
+	if (argc == 4)
 	{
-		monitor_and_select(&monitoring_fd, &server_fd, &max_fd);
-		monitor_read(&server_fd, &monitoring_fd, &data);
-		monitor_input(&monitoring_fd, &data, &server_fd);
+		if (!check_inputs(argv, &server))
+			return (1);
+		init_server_socket(&server, &socket_address, &max_fd);
+		try_to_connect_serveur(&server, &socket_address);
+		while (1)
+		{
+			monitor_and_select(&monitoring_fd, &server, &max_fd);
+			monitor_read(&server, &monitoring_fd, &data);
+			monitor_input(&monitoring_fd, &data, &server);
+		}
+	}
+	else
+	{
+		fprintf(stderr, "Usage: %s <pseudo> <adresse_serveur> <port>\n",
+			argv[0]);
+		return (1);
 	}
 }
