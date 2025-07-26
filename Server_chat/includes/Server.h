@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:15:18 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/18 02:19:26 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/26 02:01:22 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	listning(int *srv_fd);
 void	init_and_link_srv_socket(t_fd *fd, t_sock_adress *socket_adress);
 void	handle_client_data(t_fd *fd, char *buffer, int idx, int bytes);
 void	handle_client_disconnect(t_fd *fd, int idx);
+void	clear_and_exit(t_fd *fd, t_sock_adress *sock_address);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 02:48:40 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/18 03:09:58 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/19 17:18:19 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.h"
+#include <stdio.h>
 
 void	check_pseudo(char *pseudo_macro, size_t max_length_pseudo)
 {

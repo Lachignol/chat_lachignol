@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 02:48:40 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/18 02:19:13 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/26 02:01:03 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	init_monitoring(t_fd *fd)
 	int		max_fd;
 	int		i;
 
+	max_fd = 0;
+	monitoring = 0;
 	FD_ZERO(&(fd->monitoring_fd));
 	FD_SET(fd->srv_fd, &(fd->monitoring_fd));
 	max_fd = fd->srv_fd;
@@ -51,7 +53,7 @@ void	init_and_link_srv_socket(t_fd *fd, t_sock_adress *socket_adress)
 			sizeof(socket_adress->sock_address)) < 0)
 	{
 		fprintf(stderr, "Erreur de linkage pour le socket\n");
-		exit(1);
+		clear_and_exit(fd, socket_adress);
 	}
 }
 
@@ -70,4 +72,11 @@ void	init_var(char *buffer, int *connectedSocketFd, t_sock_adress *sock_ad)
 	sock_ad->size = sizeof(sock_ad->sock_address);
 	memset(buffer, '\0', BUFFER_SIZE);
 	memset(connectedSocketFd, 0, sizeof(int) * CONNEXION_LIMIT);
+}
+
+void	clear_and_exit(t_fd *fd, t_sock_adress *sock_address)
+{
+	memset(fd, 0, sizeof(*fd));
+	memset(sock_address, 0, sizeof(*sock_address));
+	exit(1);
 }
