@@ -1,6 +1,4 @@
-# chat_lachignol
-
-# Projet Chat Serveur - TCP et SSL/TLS
+# Projet Chat Serveur en C- TCP et SSL/TLS
 
 ## Vidéo de démonstration
 
