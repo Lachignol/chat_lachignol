@@ -1,4 +1,4 @@
-# Projet Chat Serveur en C- TCP et SSL/TLS
+# Projet Chat Serveur - TCP et SSL/TLS
 
 ## Vidéo de démonstration
 
@@ -10,7 +10,7 @@ Pour mieux visualiser le fonctionnement du chat, voici une vidéo qui montre :
 
 > [chat_ssl.webm](https://github.com/user-attachments/assets/fef7f8ab-40e2-4a18-9e46-e6a01dc6f9d8)
 
-Ce projet contient deux versions d'un serveur de chat :
+Ce projet contient deux versions d'un serveur de chat en language c:
 
 - **Chat TCP classique** : un serveur/client simple utilisant des connexions TCP non chiffrées, idéal pour les environnements de développement ou de test en local.
 - **Chat SSL/TLS** : un serveur/client sécurisé destiné à la production, utilisant SSL/TLS via OpenSSL pour chiffrer toutes les communications, garantissant confidentialité et intégrité des échanges.
