@@ -77,6 +77,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 - Compiler avec les bibliothèques OpenSSL (`-lssl -lcrypto`) pour la version SSL (installer la bibliotheque et faite tout simplement make jai deja configurer le Makefile en adequation).  
 - Lancer le serveur SSL avec la clé et le certificat préconfigurés dans le dossier de l'executable.  
 - Configurer les ports (par défaut 8080 ) selon ton réseau (pour le serveur redefinir la macro listening-port.)
+- Quitter proprement en tapant /quit.
   
 #### Pour le client:
 - Compiler en faisant make.
@@ -85,12 +86,14 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
   ``` bash
   ./Client toto 127.0.0.1 8080
   ```
+  - Quitter proprement en tapant /quit.
   
 ### Pour la version TCP.  
 
 #### Pour le serveur:
 - Compiler en faisant make.
 - Configurer les ports (par défaut 8080 ) selon ton réseau (pour le serveur redefinir la macro listening-port.)
+
 #### Pour le client:
 - Compiler en faisant make.
 - Renseigner en arguments le pseudo l'adresse au format 127.0.0.1 (par exemple) puis le port : 8080
