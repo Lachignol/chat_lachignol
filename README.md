@@ -71,7 +71,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 
 ## Déploiement
 
-### Pour la version SSL. 
+### Pour la version SSL/TLS. 
 
 #### Pour le serveur:
 - Compiler avec les bibliothèques OpenSSL (`-lssl -lcrypto`) pour la version SSL (installer la bibliotheque et faite tout simplement make jai deja configurer le Makefile en adequation).  
