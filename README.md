@@ -17,11 +17,11 @@ Ce projet contient deux versions d'un serveur de chat en language c:
 
 ## Sommaire
 
+- [Vidéo de démonstration](#vidéo-de-démonstration)  
 - [Fonctionnalités](#fonctionnalités)  
 - [Distinction entre version TCP et SSL](#distinction-entre-version-tcp-et-ssl)  
 - [Génération et gestion des certificats SSL](#génération-et-gestion-des-certificats-ssl)  
 - [Déploiement](#déploiement)  
-- [Vidéo de démonstration](#vidéo-de-démonstration)  
 - [Licence](#licence)
 
 ## Fonctionnalités
