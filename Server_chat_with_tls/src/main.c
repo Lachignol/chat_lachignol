@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:22:53 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/28 00:15:20 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 02:09:16 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	main(void)
 		init_monitoring(&fds);
 		monitor(&fds, &socket_address, buffer, ctx);
 	}
-	SSL_CTX_free(ctx);
+	return (0);
 }
