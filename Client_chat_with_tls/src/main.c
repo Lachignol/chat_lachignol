@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:11:36 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/27 22:39:57 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 10:07:25 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ int	main(int argc, char **argv)
 		while (1)
 		{
 			monitor_and_select(&monitoring_fd, &server, &max_fd);
-			monitor_read(&server, &monitoring_fd, &data);
+			if (!monitor_read(&server, &monitoring_fd, &data))
+				break ;
 			monitor_input(&monitoring_fd, &data, &server);
 		}
+		SSL_CTX_free(ctx);
 	}
 	else
 	{

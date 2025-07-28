@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 02:48:40 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/27 07:26:41 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:11:17 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_monitoring(t_fd *fd)
 	monitoring = 0;
 	FD_ZERO(&(fd->monitoring_fd));
 	FD_SET(fd->srv_fd, &(fd->monitoring_fd));
+	FD_SET(STDIN_FILENO, &(fd->monitoring_fd));
 	max_fd = fd->srv_fd;
 	i = -1;
 	while (++i < CONNEXION_LIMIT)
@@ -75,6 +76,33 @@ void	init_var(char *buffer, int *connectedSocketFd, t_sock_adress *sock_ad)
 
 void	clear_and_exit(t_fd *fd, t_sock_adress *sock_address)
 {
+	memset(fd, 0, sizeof(*fd));
+	memset(sock_address, 0, sizeof(*sock_address));
+	exit(1);
+}
+
+void	clear_and_exit_all(t_fd *fd, t_sock_adress *sock_address)
+{
+	int	i;
+
+	if (fd == NULL)
+		return ;
+	i = 0;
+	while (i < CONNEXION_LIMIT)
+	{
+		if (fd->client_ssl[i] != NULL)
+		{
+			SSL_shutdown(fd->client_ssl[i]);
+			SSL_free(fd->client_ssl[i]);
+			fd->client_ssl[i] = NULL;
+		}
+		if (fd->connected_socket_fd[i] > 0)
+		{
+			close(fd->connected_socket_fd[i]);
+			fd->connected_socket_fd[i] = 0;
+		}
+		i++;
+	}
 	memset(fd, 0, sizeof(*fd));
 	memset(sock_address, 0, sizeof(*sock_address));
 	exit(1);

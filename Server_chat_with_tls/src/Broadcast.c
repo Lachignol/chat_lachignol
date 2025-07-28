@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 20:45:30 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/28 00:00:03 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:08:57 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	broadcast_message(t_fd *fd, const char *msg, int exclude_idx)
 	int		ret;
 	SSL		*ssl;
 	char	timebuf[16];
-	char styled_msg[BUFFER_SIZE + 64];
+	char	styled_msg[BUFFER_SIZE + 64];
 
 	get_current_time_str(timebuf, sizeof(timebuf));
 	snprintf(styled_msg, sizeof(styled_msg), "%s" COLOR_INFO "%s" COLOR_RESET, timebuf, msg);
@@ -101,20 +101,26 @@ void	broadcast_goodbye_message(t_fd *fd, int exclude_idx)
 	}
 }
 
+
 void	close_and_notify_server_full(int *new_client, SSL *ssl)
 {
-	const char	*msg = COLOR_RED "Full: serveur saturé\n" COLOR_RESET ;
+	const char*	msg = COLOR_RED "Full: serveur saturé\n" COLOR_RESET;
 
-	if (ssl)
+	if (ssl != NULL)
 	{
-		if (SSL_write(ssl, msg, (int)strlen(msg)) <= 0)
-		{
+		int ret = SSL_write(ssl, msg, (int)strlen(msg));
+		if (ret <= 0)
 			fprintf(stderr, "Erreur envoi du message serveur plein via SSL\n");
-		}
-		SSL_shutdown(ssl);
+		ret = SSL_shutdown(ssl);
+		if (ret < 0)
+			fprintf(stderr, "Erreur SSL_shutdown\n");
 		SSL_free(ssl);
+		ssl = NULL;
 	}
-	if (new_client && *new_client > 0)
+	if (new_client != NULL && *new_client > 0)
+	{
 		close(*new_client);
+		*new_client = -1;
+	}
 	printf("Max Connexion reached\n");
 }

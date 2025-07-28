@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 23:33:45 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/27 22:11:13 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:00:26 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	authenticate_user(int *new_client, char pseudo[PSEUDO_MAX_LENGTH], SSL *ssl)
 		fprintf(stderr, "Erreur réception du pseudo via SSL\n");
 		SSL_shutdown(ssl);
 		SSL_free(ssl);
+		ssl = NULL;
 		close(*new_client);
 		return (0);
 	}

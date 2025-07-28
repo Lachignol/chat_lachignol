@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 23:43:59 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/28 00:33:27 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:11:38 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	add_new_contact(t_fd *fd, t_sock_adress *sock_ad, SSL_CTX *ctx)
 		if (SSL_accept(ssl) <= 0)
 		{
 			fprintf(stderr, "Erreur SSL_accept (handshake)\n");
-			return (SSL_free(ssl), close(new_client), (void) NULL);
+			return (SSL_free(ssl), ssl = NULL, close(new_client), (void) NULL);
 		}
 		if (!authenticate_user(&new_client, pseudo, ssl))
 			return ;

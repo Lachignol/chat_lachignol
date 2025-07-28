@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:05:23 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/27 22:54:01 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 10:09:49 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int		check_inputs(char **argv, t_server *srv);
 int		check_pseudo(char *pseudo);
 int		check_port(char *portchar, int *port);
 int		check_adress(char *adress);
+int		monitor_read(t_server *server, fd_set *monitoring_fd, t_data *data);
 void	init_server_socket(t_server *server, struct sockaddr_in *socketAddress,
 			int *max_fd);
 int		try_to_connect_serveur(t_server *server, struct sockaddr_in *sockAdd,
 			SSL_CTX *ctx);
 void	monitor_and_select(fd_set *monitoring_fd,
 			t_server *server, int *max_fd);
-void	monitor_read(t_server *server, fd_set *monitoring_fd, t_data *data);
 void	monitor_input(fd_set *monit_fd, t_data *data, t_server *server);
 SSL_CTX	*init_tls_context(void);
 #endif

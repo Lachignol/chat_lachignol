@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 07:23:20 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/28 00:49:37 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:15:34 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ unsigned long	djb2_hash(const char *str)
 
 int	get_color_index(const char *pseudo)
 {
-    return (int)(djb2_hash(pseudo) % NUM_USER_COLORS);
+	return ((int)(djb2_hash(pseudo) % NUM_USER_COLORS));
 }
 
 void	get_current_time_str(char *buffer, size_t size)
 {
-    time_t now = time(NULL);
-    struct tm *tm_info = localtime(&now);
-    strftime(buffer, size, "[%H:%M:%S] ", tm_info);
+	time_t now = time(NULL);
+	struct tm *tm_info = localtime(&now);
+	strftime(buffer, size, "[%H:%M:%S] ", tm_info);
 }
 
 int	send_connected_users_list(t_fd *fd, SSL *ssl, int self_idx)
@@ -61,8 +61,7 @@ int	send_connected_users_list(t_fd *fd, SSL *ssl, int self_idx)
 	int send_bytes;
 	int	count;
 
-	offset += snprintf(user_list_msg + offset, sizeof(user_list_msg) - offset,
-                       "\nListe des utilisateurs connectés :\n");
+	offset += snprintf(user_list_msg + offset, sizeof(user_list_msg) - offset, "\nListe des utilisateurs connectés :\n");
 	count = 0;
 	j = -1;
 	while (++j < CONNEXION_LIMIT)
@@ -86,3 +85,20 @@ int	send_connected_users_list(t_fd *fd, SSL *ssl, int self_idx)
 	return (1);
 }
 
+int	exit_input(t_fd *fd)
+{
+	char	exit[BUFFER_SIZE];
+
+	if (FD_ISSET(STDIN_FILENO, &(fd->monitoring_fd)))
+	{
+		if (fgets(exit, BUFFER_SIZE, stdin) == NULL)
+		{
+			fprintf(stderr, COLOR_RED "Erreur d'input\n" COLOR_RESET);
+			return (0);
+		}
+		exit[strcspn(exit, "\n")] = '\0';
+		if (strcmp(exit, "/quit") == 0)
+			return (1);
+	}
+	return (0);
+}

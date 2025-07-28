@@ -6,7 +6,7 @@
 /*   By: ascordil <ascordil@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:07:23 by ascordil          #+#    #+#             */
-/*   Updated: 2025/07/27 23:48:41 by ascordil         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:23:38 by ascordil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	monitor_and_select(fd_set *monitoring_fd, t_server *srv, int *max_fd)
 		perror("select error");
 }
 
-void	monitor_read(t_server *srv, fd_set *monitoring_fd, t_data *data)
+int		monitor_read(t_server *srv, fd_set *monitoring_fd, t_data *data)
 {
 	int	received_bytes;
 
@@ -41,7 +41,7 @@ void	monitor_read(t_server *srv, fd_set *monitoring_fd, t_data *data)
 				SSL_free(srv->client_ssl);
 				srv->client_ssl = NULL;
 				close(srv->server_fd);
-				exit(1);
+				return (0);
 			}
 			data->buffer[received_bytes] = '\0';
 		}
@@ -50,7 +50,9 @@ void	monitor_read(t_server *srv, fd_set *monitoring_fd, t_data *data)
 		printf(COLOR_PROMPT "> " COLOR_RESET);
 		fflush(stdout);
 		memset(data->buffer, '\0', BUFFER_SIZE);
+		return (1);
 	}
+	return (1);
 }
 
 void	monitor_input(fd_set *monit_fd, t_data *data, t_server *srv)
@@ -65,7 +67,7 @@ void	monitor_input(fd_set *monit_fd, t_data *data, t_server *srv)
 			return ;
 		}
 		data->input[strcspn(data->input, "\n")] = '\0';
-		if (srv->client_ssl != NULL)
+		if (srv->client_ssl != NULL && strlen(data->input) != 0)
 		{
 			send_bytes = SSL_write(srv->client_ssl, data->input,
 					strlen(data->input));
