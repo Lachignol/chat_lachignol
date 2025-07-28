@@ -47,7 +47,7 @@ Le serveur TCP simple est parfait pour commencer et comprendre la base du foncti
 
 ## Génération et gestion des certificats SSL
 
-Pour que le serveur SSL fonctionne correctement, il nécessite un **certificat SSL** ainsi qu’une clé privée dans le dossier /Server_chat_with_tls . Voici comment générer un certificat auto-signé pour un usage de test ou développement :
+Pour que le serveur SSL fonctionne correctement, il nécessite un **certificat SSL** ainsi qu’une clé privée. Voici comment générer un certificat auto-signé pour un usage de test ou développement :
 
 ```bash
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
