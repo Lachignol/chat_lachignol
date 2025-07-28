@@ -79,9 +79,9 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 - Configurer les ports (par défaut 8080 ) selon ton réseau (pour le serveur redefinir la macro listening-port.)
 - Quitter proprement en tapant:
 
- ```bash
- /quit
- ```
+  ```bash
+  /quit
+  ```
   
 #### Pour le client:
 - Compiler en faisant make.
@@ -92,9 +92,9 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
   ```
 - Quitter proprement en tapant:
 
- ```bash
- /quit
- ```
+  ```bash
+  /quit
+  ```
   
 ### Pour la version TCP.  
 
