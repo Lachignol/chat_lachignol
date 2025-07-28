@@ -12,7 +12,7 @@ Pour mieux visualiser le fonctionnement du chat, voici une vidéo qui montre :
 
 Ce projet contient deux versions d'un serveur de chat en language c:
 
-- **Chat TCP classique** : un serveur/client simple utilisant des connexions TCP non chiffrées, idéal pour les environnements de développement ou de test en local.
+- **Chat TCP classique** : un serveur/client simple utilisant des connexions TCP non chiffrées, idéal pour les environnements de développement ou de test en local. Cette version, moins riche en fonctionnalités, m’a permis de me familiariser avec les sockets.
 - **Chat SSL/TLS** : un serveur/client sécurisé destiné à la production, utilisant SSL/TLS via OpenSSL pour chiffrer toutes les communications, garantissant confidentialité et intégrité des échanges.
 
 ## Sommaire
@@ -28,7 +28,7 @@ Ce projet contient deux versions d'un serveur de chat en language c:
 
 - Gestion multi-utilisateurs avec listes de participants  
 - Attribution dynamique de couleurs aux pseudos dans le chat  
-- Support TCP simple ou SSL/TLS sécurisé  
+- Support TCP et SSL/TLS sécurisé  
 - Messages horodatés envoyés à tous les clients connectés  
 - Messages de bienvenue et départ avec diffusion à tous  
 - Gestion propre des déconnexions et erreurs réseau  
@@ -96,7 +96,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
   /quit
   ```
   
-### Pour la version TCP.  
+### Pour la version TCP simple, il y a moins de fonctionnalités : pas d’horodatage, pas de liste des utilisateurs, etc.
 
 #### Pour le serveur:
 - Compiler en faisant make.
@@ -108,6 +108,11 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
   
   ``` bash
   ./Client toto 127.0.0.1 8080
+  ```
+- Quitter proprement en tapant:
+
+  ```bash
+  /quit
   ```
 
 --- 
